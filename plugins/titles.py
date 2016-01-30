@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 import requests
 
 def color(message):
-    return "\x033" + message + "\x03"
+    return "\x033" + message + "\x03 "
 
 class TitlePlugin(Plugin):
 
