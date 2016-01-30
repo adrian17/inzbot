@@ -22,7 +22,7 @@ class TitlePlugin(Plugin):
                 response = requests.get(message, headers=header)
                 if 'text/html' in response.headers['content-type']:
                     soup = BeautifulSoup(response.text, "html.parser")
-                    title = soup.find("title").text.strip().replace("\n", "")
+                    title = soup.find("title").text.strip()
                     message = color("==== ") + title + color(" ====")
                     bot.message(message)
                     return True
