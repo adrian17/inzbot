@@ -10,6 +10,7 @@ def color(message):
     return "\x033" + message + "\x03 "
 
 class TitlePlugin(Plugin):
+    """Prints titles of web pages."""
 
     @on_pubmsg
     @priority(70)

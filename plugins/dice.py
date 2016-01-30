@@ -13,14 +13,14 @@ class DicePlugin(Plugin):
 
     @command
     def roll(self, bot, event):
-        match = re.match(r"^(?:(\d+)?[kd])?(\d+)([\+-]\d+)?$", event.text)
+        """!roll k<K>, !roll <N>k<K> => Rolls N K-sided dice."""
+        match = re.match(r"^(?:(\d+)?[kd])?(\d+)?$", event.text)
         if not match:
             bot.message("nie rozumiem")
             return
 
         dice_size = int(match.group(2))
         n_dice = int(match.group(1)) if match.group(1) else 1
-        modifier = int(match.group(3)) if match.group(3) else 0
 
         if dice_size > 1000:
             bot.message("za duza kosc")
@@ -33,5 +33,4 @@ class DicePlugin(Plugin):
         else:
             rolls, sum_dice = self.dice_roll(n_dice, dice_size, modifier)
             rolls_str = ", ".join(map(str, rolls))
-            modifier_str = "(%+d)" % modifier if modifier != 0 else ""
-            bot.message("==== {} {} ---> {} ====".format(rolls_str, modifier_str, sum_dice))
+            bot.message("==== {} ---> {} ====".format(rolls_str, sum_dice))

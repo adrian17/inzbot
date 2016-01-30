@@ -8,6 +8,7 @@ import isodate
 import requests
 
 class YoutubePlugin(Plugin):
+    """Prints data about a YouTube video from its link."""
 
     @on_pubmsg
     @priority(80)

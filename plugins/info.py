@@ -7,12 +7,9 @@ def command_name_list(plugin):
     return commands
 
 class InfoPlugin(Plugin):
-    def __init__(self):
-        super().__init__()
-        self.IP = None
-
     @command
     def commands(self, bot, event):
+        """!commands => Prints a list of commands."""
         func_names = []
         for plugin, handler in bot.command_handlers:
             func_names.extend(handler.commands)
@@ -21,6 +18,7 @@ class InfoPlugin(Plugin):
 
     @command
     def plugins(self, bot, event):
+        """!plugins => Prints a list of plugins and their commands."""
         names = []
         for plugin in bot.plugins:
             plugin_info = plugin.__class__.__name__
@@ -33,9 +31,6 @@ class InfoPlugin(Plugin):
 
     @command
     def ip(self, bot, event):
+        """!ip => Prints host's IP."""
         ip = bot.connection.socket.getsockname()[0]
         bot.message(ip)
-
-    @command
-    def help(self, bot, event):
-        bot.message("!help [command name|plugin name] -> shows help. Not implemented yet.")

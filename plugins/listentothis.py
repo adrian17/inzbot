@@ -8,6 +8,7 @@ class MusicPlugin(Plugin):
 
     @command
     def music(self, bot, event):
+        """!music => Fetches random music from /r/listentothis."""
         headers = {'User-Agent': bot.user_agent}
         subreddit = requests.get("https://www.reddit.com/r/listentothis.json", headers=headers).json()
 
