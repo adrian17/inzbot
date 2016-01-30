@@ -1,0 +1,11 @@
+server: irc.freenode.net
+port: 6667
+channel: '#non_existent_channel'
+nickname: example_irc_bot
+nickpass: null
+disabled_commands: []
+admins: []
+prompt: '!'
+other:
+  user-agent: null
+  some-api-key: null

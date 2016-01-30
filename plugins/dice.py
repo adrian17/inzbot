@@ -1,0 +1,37 @@
+from plugin_base import *
+
+import random
+import re
+
+class DicePlugin(Plugin):
+
+    @staticmethod
+    def dice_roll(n_dice, dice_size, modifier):
+        rolls = [random.randint(1, dice_size) for _ in range(n_dice)]
+        sum_dice = sum(rolls) + modifier
+        return rolls, sum_dice
+
+    @command
+    def roll(self, bot, event):
+        match = re.match(r"^(?:(\d+)?[kd])?(\d+)([\+-]\d+)?$", event.text)
+        if not match:
+            bot.message("nie rozumiem")
+            return
+
+        dice_size = int(match.group(2))
+        n_dice = int(match.group(1)) if match.group(1) else 1
+        modifier = int(match.group(3)) if match.group(3) else 0
+
+        if dice_size > 1000:
+            bot.message("za duza kosc")
+        elif dice_size <= 1:
+            bot.message("za mala kosc")
+        elif n_dice > 30:
+            bot.message("za duzo kosci")
+        elif n_dice == 0:
+            bot.message("taa, rzucaj sobie wyimaginowanymi kostkami")
+        else:
+            rolls, sum_dice = self.dice_roll(n_dice, dice_size, modifier)
+            rolls_str = ", ".join(map(str, rolls))
+            modifier_str = "(%+d)" % modifier if modifier != 0 else ""
+            bot.message("==== {} {} ---> {} ====".format(rolls_str, modifier_str, sum_dice))
