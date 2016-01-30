@@ -10,6 +10,7 @@ class MemoPlugin(Plugin):
 
     @command
     def tell(self, bot, event):
+        """!tell <user> <message> => Saves a message for user. Prints it when he says something."""
         text = event.text.strip()
         if " " not in text:
             bot.message("No message given.")
@@ -21,7 +22,6 @@ class MemoPlugin(Plugin):
 
     @on_pubmsg
     def on_message(self, bot, event):
-        """!tell <user> <message> => Saves a message for user. Prints it when he says something."""
         nick = event.source.nick
         if nick in self.memos:
             for source, time, message in self.memos[nick][-4:]:
