@@ -3,6 +3,7 @@ port: 6667
 channel: '#non_existent_channel'
 nickname: example_irc_bot
 nickpass: null
+timezone: local
 disabled_commands: []
 admins: []
 prompt: '!'

@@ -20,6 +20,7 @@ class InzBot(irc.bot.SingleServerIRCBot):
         super().__init__([(server, port)], nickname, nickname)
         self.channel = channel
         self.nickpass = nickpass
+        self.timezone = config["timezone"]
 
         self.short_prompt = True if config["prompt"] else False
         self.prompt_start = config["prompt"]

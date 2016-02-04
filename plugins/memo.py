@@ -17,7 +17,7 @@ class MemoPlugin(Plugin):
             return
         target, message = text.split(maxsplit=1)
         target, message = target.strip(), message.strip()[:400]
-        self.memos[target].append((event.source.nick, arrow.now(), message))
+        self.memos[target].append((event.source.nick, arrow.now(bot.timezone), message))
         bot.message("Consider it noted.")
 
     @on_pubmsg
@@ -25,6 +25,6 @@ class MemoPlugin(Plugin):
         nick = event.source.nick
         if nick in self.memos:
             for source, time, message in self.memos[nick][-4:]:
-                time = time.to("Europe/Warsaw").format("HH:mm")
+                time = time.format("HH:mm")
                 bot.message("{}: {} | {} | {}".format(nick, source, time, message))
             del self.memos[nick]
