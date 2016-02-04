@@ -28,6 +28,7 @@ class InzBot(irc.bot.SingleServerIRCBot):
         self.youtube_api_key = config["other"]["youtube-api-key"]
 
         self.admins = config["admins"]
+        self.blacklist = config["blacklist"]
         self.disabled_commands = config["disabled_commands"]
 
         self.plugins = []
@@ -56,12 +57,16 @@ class InzBot(irc.bot.SingleServerIRCBot):
         self.connection.privmsg(target, message)
 
     def on_privmsg(self, c, e):
+        if e.source.nick in self.blacklist:
+            return
         message = e.arguments[0]
         self.target = e.source.nick
         self.connection = c
         self.do_command(e, e.arguments[0], True)
 
     def on_pubmsg(self, c, e):
+        if e.source.nick in self.blacklist:
+            return
         message = e.arguments[0]
         self.target = e.target
         self.connection = c

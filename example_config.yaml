@@ -6,6 +6,7 @@ nickpass: null
 disabled_commands: []
 admins: []
 prompt: '!'
+blacklist: []
 other:
   user-agent: null
   some-api-key: null
