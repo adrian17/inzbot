@@ -26,7 +26,7 @@ class InzBot(irc.bot.SingleServerIRCBot):
         self.prompt_start = config["prompt"]
 
         self.user_agent = config["other"]["user-agent"]
-        self.youtube_api_key = config["other"]["youtube-api-key"]
+        self.google_api_key = config["other"]["google-api-key"]
 
         self.admins = config["admins"]
         self.blacklist = config["blacklist"]

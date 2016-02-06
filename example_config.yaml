@@ -10,4 +10,4 @@ prompt: '!'
 blacklist: []
 other:
   user-agent: null
-  some-api-key: null
+  google-api-key: null

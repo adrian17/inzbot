@@ -24,7 +24,7 @@ class YoutubePlugin(Plugin):
             video_id = re.split(r"\?|\.|&|=|/", after_main_link)[0]
             params = {
                 "id": video_id,
-                "key": bot.youtube_api_key,
+                "key": bot.google_api_key,
                 "part": "snippet,contentDetails",
                 "fields": "items(snippet(title,channelTitle),contentDetails(duration))"
             }
