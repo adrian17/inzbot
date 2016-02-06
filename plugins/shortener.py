@@ -18,9 +18,9 @@ class ShortenPlugin(Plugin):
     @priority(90)
     @pattern(R"(?P<url>https?://[^\s]+)")
     def listen(self, bot, event):
-        if len(event.message) < 110:
-            return
         url = event.match.group("url")
+        if len(url) < 100:
+            return
 
         short = self.shorten(url, bot.google_api_key)
         if not short:
