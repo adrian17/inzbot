@@ -15,6 +15,8 @@ class Plugin:
         for handler in handlers:
             if not hasattr(handler, "on_pubmsg"):
                 handler.on_pubmsg = False
+            if not hasattr(handler, "patterns"):
+                handler.patterns = []
             if not hasattr(handler, "commands"):
                 handler.commands = []
             if not hasattr(handler, "priority"):
@@ -48,6 +50,14 @@ def command(*commands):
 def on_pubmsg(function):
     function.on_pubmsg = True
     return function
+
+def pattern(pattern_str):
+    def decorator(function):
+        if not hasattr(function, "patterns"):
+            function.patterns = []
+        function.patterns.append(pattern_str)
+        return function
+    return decorator
 
 def admin(function):
     @wraps(function)

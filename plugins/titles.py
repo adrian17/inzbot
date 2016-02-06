@@ -14,18 +14,19 @@ class TitlePlugin(Plugin):
 
     @on_pubmsg
     @priority(70)
+    @pattern(R"(?P<url>https?://[^\s]+)")
     def handle_line(self, bot, event):
         header = {'User-Agent': bot.user_agent}
 
-        message = event.message
-        if message.startswith("http:") or message.startswith("https:"):
-            try:
-                response = requests.get(message, headers=header)
-                if 'text/html' in response.headers['content-type']:
-                    soup = BeautifulSoup(response.text, "html.parser")
-                    title = soup.find("title").text.strip()
-                    message = color("==== ") + title + color(" ====")
-                    bot.message(message)
-                    return True
-            except Exception:
-                logging.exception("")
+        url = event.match.group("url")
+
+        try:
+            response = requests.get(url, headers=header)
+            if 'text/html' in response.headers['content-type']:
+                soup = BeautifulSoup(response.text, "html.parser")
+                title = soup.find("title").text.strip()
+                message = color("==== ") + title + color(" ====")
+                bot.message(message)
+                return True
+        except Exception:
+            logging.exception("")

@@ -1,7 +1,5 @@
 from plugin_base import *
 
-import re
-
 import requests
 
 class ShortenPlugin(Plugin):
@@ -18,14 +16,11 @@ class ShortenPlugin(Plugin):
 
     @on_pubmsg
     @priority(90)
+    @pattern(R"(?P<url>https?://[^\s]+)")
     def listen(self, bot, event):
-        message = event.message
-        if len(message) < 110:
+        if len(event.message) < 110:
             return
-        match = re.search(R"(?P<url>https?://[^\s]+)", event.message)
-        if not match:
-            return
-        url = match.group("url")
+        url = event.match.group("url")
 
         short = self.shorten(url, bot.google_api_key)
         if not short:

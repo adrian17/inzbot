@@ -30,9 +30,9 @@ class EchoPlugin(Plugin):
 
     @on_pubmsg
     @priority(10)
+    @pattern("naleśnik")
     def handle_line(self, bot, event):
-        if "naleśnik" in event.message:
-            bot.message("(smacznego)")
+        bot.message("(smacznego)")
 
     @command
     def figlet(self, bot, event):

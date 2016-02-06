@@ -3,6 +3,8 @@
 import logging
 logging.basicConfig(format='\n%(asctime)s %(message)s', filename='../inzbot.log')
 
+import re
+
 import irc.bot
 import irc.strings
 irc.client.ServerConnection.buffer_class.errors = 'replace'
@@ -84,6 +86,14 @@ class InzBot(irc.bot.SingleServerIRCBot):
             return
 
         for plugin, handler in self.pubmsg_handlers:
+            if handler.patterns:
+                for pattern in handler.patterns:
+                    match = re.search(pattern, message)
+                    if match:
+                        e.match = match
+                        break
+                else:
+                    continue
             e.message = message
             success = handler(plugin, self, e)
             if success:
