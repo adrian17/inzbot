@@ -82,8 +82,9 @@ class InzBot(irc.bot.SingleServerIRCBot):
 
         if self.short_prompt and message.startswith(self.prompt_start):
             command = message[len(self.prompt_start):]
-            self.do_command(e, command.strip(), notify=False)
-            return
+            executed = self.do_command(e, command.strip(), allow_passthrough=True)
+            if executed:
+                return
 
         for plugin, handler in self.pubmsg_handlers:
             if handler.patterns:
@@ -99,7 +100,7 @@ class InzBot(irc.bot.SingleServerIRCBot):
             if success:
                 return
 
-    def do_command(self, e, cmd, priv=False, notify=True):
+    def do_command(self, e, cmd, priv=False, allow_passthrough=True):
         if priv and e.source.nick != "adrian17":
             self.message(e.source.nick + " asked me to: " + cmd, target="adrian17")
         command, *arg = cmd.split(" ", 1)
@@ -110,9 +111,12 @@ class InzBot(irc.bot.SingleServerIRCBot):
                 continue
             e.text = arg[0].strip() if arg else ""
             handler(plugin, self, e)
-            return
-        if notify:
+            return True
+        if not allow_passthrough:
             self.message("Zla komenda: " + command)
+            return True
+        else:
+            return False
 
 def main():
     bot = InzBot()
