@@ -12,7 +12,7 @@ class DefinitionsPlugin(Plugin):
         self.definitions = {}
         if os.path.isfile(self.path):
             with open(self.path) as datafile:
-                self.definitions = yaml.open(datafile)
+                self.definitions = yaml.load(datafile)
 
     def save(self):
         with open(self.path, "w") as datafile:
