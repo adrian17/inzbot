@@ -11,9 +11,9 @@ class YoutubePlugin(Plugin):
 
     @on_pubmsg
     @priority(80)
-    @pattern(R"youtube\.com\/watch\?v=(?P<id>\w+)")
-    @pattern(R"youtube\.com\/v\/(?P<id>\w+)")
-    @pattern(R"youtu\.be\/(?P<id>\w+)")
+    @pattern(R"youtube\.com\/watch\?v=(?P<id>[-\w]+)")
+    @pattern(R"youtube\.com\/v\/(?P<id>[-\w]+)")
+    @pattern(R"youtu\.be\/(?P<id>[-\w]+)")
     def handle_line(self, bot, event):
         video_id = event.match.group("id")
         params = {
