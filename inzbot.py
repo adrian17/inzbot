@@ -56,7 +56,7 @@ class InzBot(irc.bot.SingleServerIRCBot):
     def message(self, message, target=None):
         if target == None:
             target = self.target
-        message = message.strip().replace("\n", "").replace("\r", "")
+        message = message.rstrip().replace("\n", "").replace("\r", "")
         self.connection.privmsg(target, message)
 
     def on_privmsg(self, c, e):
