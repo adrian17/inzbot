@@ -13,7 +13,7 @@ class DicePlugin(Plugin):
     @command
     def roll(self, bot, event):
         """!roll k<K>, !roll <N>k<K> => Rolls N K-sided dice."""
-        match = re.match(r"^(?:(\d+)?[kd])?(\d+)?$", event.text)
+        match = re.match(r"^(?:(\d+)?[kd])?(\d+)$", event.text)
         if not match:
             bot.message("nie rozumiem")
             return
