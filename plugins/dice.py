@@ -6,10 +6,9 @@ import re
 class DicePlugin(Plugin):
 
     @staticmethod
-    def dice_roll(n_dice, dice_size, modifier):
+    def dice_roll(n_dice, dice_size):
         rolls = [random.randint(1, dice_size) for _ in range(n_dice)]
-        sum_dice = sum(rolls) + modifier
-        return rolls, sum_dice
+        return rolls, sum(rolls)
 
     @command
     def roll(self, bot, event):
@@ -31,6 +30,6 @@ class DicePlugin(Plugin):
         elif n_dice == 0:
             bot.message("taa, rzucaj sobie wyimaginowanymi kostkami")
         else:
-            rolls, sum_dice = self.dice_roll(n_dice, dice_size, modifier)
+            rolls, sum_dice = self.dice_roll(n_dice, dice_size)
             rolls_str = ", ".join(map(str, rolls))
             bot.message("==== {} ---> {} ====".format(rolls_str, sum_dice))
