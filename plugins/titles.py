@@ -21,12 +21,14 @@ class TitlePlugin(Plugin):
         url = event.match.group("url")
 
         try:
-            response = requests.get(url, headers=header)
+            response = requests.get(url, headers=header, timeout=5)
             if 'text/html' in response.headers['content-type']:
                 soup = BeautifulSoup(response.text, "html.parser")
                 title = soup.find("title").text.strip()
                 message = color("==== ") + title + color(" ====")
                 bot.message(message)
                 return True
+        except requests.exceptions.Timeout:
+            bot.message("{}: timeout after 5s.".format(url))
         except Exception:
             logging.exception("")
