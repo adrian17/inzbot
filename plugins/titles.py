@@ -21,7 +21,7 @@ class TitlePlugin(Plugin):
         url = event.match.group("url")
 
         try:
-            response = requests.get(url, headers=header, timeout=5)
+            response = requests.get(url, headers=header, timeout=5, stream=True)
             if 'text/html' in response.headers['content-type']:
                 soup = BeautifulSoup(response.text, "html.parser")
                 title = soup.find("title").text.strip()
