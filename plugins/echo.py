@@ -16,6 +16,15 @@ class EchoPlugin(Plugin):
 
     @command
     @admin
+    def echo_to(self, bot, event):
+        """!echo <target message> => Prints a message to a target."""
+        if " " not in event.text:
+            return
+        target, message = event.text.split(maxsplit=1)
+        bot.message(message, target=target)
+
+    @command
+    @admin
     def action_echo(self, bot, event):
         """!action_echo <message> => Prints a message to channel with /me."""
         bot.message(make_action(event.text), target=bot.channel)
