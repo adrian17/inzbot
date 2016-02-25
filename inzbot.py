@@ -29,6 +29,7 @@ class InzBot(irc.bot.SingleServerIRCBot):
 
         self.user_agent = config["other"]["user-agent"]
         self.google_api_key = config["other"]["google-api-key"]
+        self.google_search_engine = config["other"]["google-search-engine"]
 
         self.admins = config["admins"]
         self.blacklist = config["blacklist"]
