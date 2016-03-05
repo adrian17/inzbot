@@ -30,7 +30,7 @@ class YoutubePlugin(Plugin):
             duration = isodate.parse_duration(video_len)
         except Exception:
             logging.exception("")
-            bot.message("adrian17: possible error, check it")
+            bot.message("possible error, check it", target="adrian17")
             return False
         bot.message("=== video: |{}| by {}, len: {} ===".format(video_title, video_author, str(duration)))
         return True
