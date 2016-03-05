@@ -32,5 +32,5 @@ class YoutubePlugin(Plugin):
             logging.exception("")
             bot.message("adrian17: possible error, check it")
             return False
-        bot.message("==== video: |{}| by {}, len: {} ====".format(video_title, video_author, str(duration)))
+        bot.message("=== video: |{}| by {}, len: {} ===".format(video_title, video_author, str(duration)))
         return True

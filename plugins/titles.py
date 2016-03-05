@@ -25,7 +25,7 @@ class TitlePlugin(Plugin):
             if 'text/html' in response.headers['content-type']:
                 soup = BeautifulSoup(response.text, "html.parser")
                 title = soup.find("title").text.strip()
-                message = color("==== ") + title + color(" ====")
+                message = color("=== ") + title + color(" ===")
                 bot.message(message)
                 return True
         except requests.exceptions.Timeout:
