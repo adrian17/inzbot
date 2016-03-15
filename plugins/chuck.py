@@ -7,7 +7,7 @@ class ChuckPlugin(Plugin):
 
     @command("chuck", "norris")
     def chuck(self, bot, event):
-        """!chuck => Fetches a Chuck Norris joke."""
+        """chuck => Fetches a Chuck Norris joke."""
         try:
             url = "http://api.icndb.com/jokes/random"
             json = requests.get(url).json()

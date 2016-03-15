@@ -14,7 +14,7 @@ class HelpPlugin(Plugin):
 
 	@command
 	def help(self, bot, event):
-		"""!help <command name>|<plugin name> => Shows help."""
+		"""help <command name>|<plugin name> => Shows help."""
 
 		name = event.text
 

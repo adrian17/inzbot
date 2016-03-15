@@ -21,7 +21,7 @@ class DefinitionsPlugin(Plugin):
     @command
     @admin
     def define(self, bot, event):
-        """!define <name> <definition> => Adds a definition. It can be accessed with !<name>."""
+        """define <name> <definition> => Adds a definition. It can be accessed with !<name>."""
         if " " not in event.text:
             return
         name, definition = event.text.split(maxsplit=1)
@@ -31,13 +31,13 @@ class DefinitionsPlugin(Plugin):
 
     @command
     def definitions(self, bot, event):
-        """!definitions => Shows all saved definitions."""
+        """definitions => Shows all saved definitions."""
         names = self.definitions.keys()
         bot.message(", ".join(names))
 
     @command
     def give(self, bot, event):
-        """!give <user> <definition> => Sends contents of definition to a user."""
+        """give <user> <definition> => Sends contents of definition to a user."""
         if " " not in event.text:
             return
         nick, name = event.text.split(maxsplit=1)

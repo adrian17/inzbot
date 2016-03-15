@@ -10,7 +10,7 @@ class MemoPlugin(Plugin):
 
     @command
     def tell(self, bot, event):
-        """!tell <user> <message> => Saves a message for user. Prints it when he says something."""
+        """tell <user> <message> => Saves a message for user. Prints it when he says something."""
         text = event.text.strip()
         if " " not in text:
             bot.message("No message given.")

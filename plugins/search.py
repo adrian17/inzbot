@@ -20,7 +20,7 @@ def do_google_request(bot, query):
 class SearchPlugin(Plugin):
     @command
     def google(self, bot, event):
-        """!google <query> => Makes a google search and returns first result."""
+        """google <query> => Makes a google search and returns first result."""
         if not event.text:
             return
         url = do_google_request(bot, event.text)
@@ -29,7 +29,7 @@ class SearchPlugin(Plugin):
 
     @command
     def xkcd(self, bot, event):
-        """!xkcd <query> => Returns the best found xkcd strip."""
+        """xkcd <query> => Returns the best found xkcd strip."""
         if not event.text:
             return
         query = "site:xkcd.com -site:*.xkcd.com " + event.text

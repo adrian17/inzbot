@@ -11,13 +11,13 @@ class EchoPlugin(Plugin):
     @command
     @admin
     def echo(self, bot, event):
-        """!echo <message> => Prints a message to channel."""
+        """echo <message> => Prints a message to channel."""
         bot.message(event.text, target=bot.channel)
 
     @command
     @admin
     def echo_to(self, bot, event):
-        """!echo <target message> => Prints a message to a target."""
+        """echo <target message> => Prints a message to a target."""
         if " " not in event.text:
             return
         target, message = event.text.split(maxsplit=1)
@@ -26,7 +26,7 @@ class EchoPlugin(Plugin):
     @command
     @admin
     def action_echo(self, bot, event):
-        """!action_echo <message> => Prints a message to channel with /me."""
+        """action_echo <message> => Prints a message to channel with /me."""
         bot.message(make_action(event.text), target=bot.channel)
 
     @command
@@ -45,7 +45,7 @@ class EchoPlugin(Plugin):
 
     @command
     def figlet(self, bot, event):
-        """!figlet <text> => Prints a result of the "figlet" program."""
+        """figlet <text> => Prints a result of the "figlet" program."""
         text = unidecode(event.text.strip())
         output = subprocess.check_output(['figlet', text]).decode('utf-8').splitlines()[:6]
         for line in output:
@@ -56,7 +56,7 @@ class EchoPlugin(Plugin):
 
     @command
     def flip(self, bot, event):
-        """!flip [<message>] => Flips table or a message."""
+        """flip [<message>] => Flips table or a message."""
         if not event.text:
             bot.message("(╯°□°）╯︵ ┻━┻", target=bot.channel)
         else:
@@ -68,7 +68,7 @@ class EchoPlugin(Plugin):
 
     @command
     def slap(self, bot, event):
-        """!slap <username>|all => Slap a user or all users."""
+        """slap <username>|all => Slap a user or all users."""
         target, *rest = event.text.strip().split(maxsplit=1)
         rest = rest[0] if rest else "surowa makrela"
         users = list(bot.channels[bot.channel].users())
