@@ -46,7 +46,7 @@ class DefinitionsPlugin(Plugin):
         bot.message("{}: {}".format(nick, self.definitions[name]))
 
     @on_pubmsg
-    @pattern(R"^!(?P<name>\w+)$")
+    @pattern(R"^!(?P<name>[\w-]+)$")
     def listen(self, bot, event):
         name = event.match.group("name")
         if name not in self.definitions:
