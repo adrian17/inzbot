@@ -23,6 +23,9 @@ class TitlePlugin(Plugin):
         try:
             response = requests.get(url, headers=header, timeout=5, stream=True)
             if 'text/html' in response.headers['content-type']:
+                # hack :/ Let's assume that most sites actually serve UTF-8 (FB does, for example)
+                if response.encoding == 'ISO-8859-1':
+                    response.encoding = 'UTF-8'
                 soup = BeautifulSoup(response.text, "html.parser")
                 title = soup.find("title").text.strip()
                 message = color("=== ") + title + color(" ===")
