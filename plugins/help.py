@@ -24,7 +24,10 @@ class HelpPlugin(Plugin):
 		command = find_command_by_name(bot, name)
 		if command:
 			if command.__doc__:
-				bot.message(command.__doc__)
+				doc = command.__doc__
+				if command.admin_only:
+					doc = "(admin command) " + doc
+				bot.message(doc)
 			else:
 				bot.message("This command has no help text.")
 			return

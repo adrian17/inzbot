@@ -21,6 +21,8 @@ class Plugin:
                 handler.commands = []
             if not hasattr(handler, "priority"):
                 handler.priority = 50
+            if not hasattr(handler, "admin_only"):
+                handler.admin_only = False
 
             if handler.commands:
                 self.command_handlers.append(handler)
@@ -60,6 +62,7 @@ def pattern(pattern_str):
     return decorator
 
 def admin(function):
+    function.admin_only = True
     @wraps(function)
     def admin_function(self, bot, event):
         if event.source.nick in bot.admins:
