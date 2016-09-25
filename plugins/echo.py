@@ -33,10 +33,6 @@ class EchoPlugin(Plugin):
     def next(self, bot, event):
         bot.message("Another satisfied customer, next!")
 
-    @command
-    def notice(self, bot, event):
-        bot.message( make_action("notices " + event.source.nick))
-
     @on_pubmsg
     @priority(10)
     @pattern("naleśnik")
