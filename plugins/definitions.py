@@ -25,6 +25,10 @@ class DefinitionsPlugin(Plugin):
         if " " not in event.text:
             return
         name, definition = event.text.split(maxsplit=1)
+        name = name.lower()
+        if not name[0].isalpha():
+            bot.message("Name should start with a letter")
+            return
         self.definitions[name] = definition
         self.save()
         bot.message("Saved.")
@@ -41,6 +45,7 @@ class DefinitionsPlugin(Plugin):
         if " " not in event.text:
             return
         nick, name = event.text.split(maxsplit=1)
+        name = name.lower()
         if name not in self.definitions:
             return
         bot.message("{}: {}".format(nick, self.definitions[name]))
@@ -48,7 +53,7 @@ class DefinitionsPlugin(Plugin):
     @on_pubmsg
     @pattern(R"^!(?P<name>[\w-]+)$")
     def listen(self, bot, event):
-        name = event.match.group("name")
+        name = event.match.group("name").lower()
         if name not in self.definitions:
             return
         bot.message(self.definitions[name])
