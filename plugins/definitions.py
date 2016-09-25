@@ -33,7 +33,7 @@ class DefinitionsPlugin(Plugin):
     def definitions(self, bot, event):
         """definitions => Shows all saved definitions."""
         names = self.definitions.keys()
-        bot.message(", ".join(names))
+        bot.message(", ".join(names), wrap=True)
 
     @command
     def give(self, bot, event):

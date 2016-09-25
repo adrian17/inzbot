@@ -4,6 +4,7 @@ import logging
 logging.basicConfig(format='\n%(asctime)s %(message)s', filename='../inzbot.log')
 
 import re
+import textwrap
 
 import irc.bot
 import irc.strings
@@ -54,11 +55,18 @@ class InzBot(irc.bot.SingleServerIRCBot):
             c.privmsg('NickServ', 'identify {}'.format(self.nickpass))
         c.join(self.channel)
 
-    def message(self, message, target=None):
+    def message(self, message, target=None, wrap=False):
         if target == None:
             target = self.target
         message = message.rstrip().replace("\n", "").replace("\r", "")
-        self.connection.privmsg(target, message)
+
+        if wrap:
+            messages = textwrap.wrap(message, width=256)
+        else:
+            messages = [message]
+
+        for message in messages:
+            self.connection.privmsg(target, message)
 
     def on_privmsg(self, c, e):
         if e.source.nick in self.blacklist:
