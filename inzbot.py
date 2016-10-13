@@ -1,7 +1,6 @@
 #! /usr/bin/env python3
 
 import logging
-logging.basicConfig(format='\n%(asctime)s %(message)s', filename='../inzbot.log')
 
 import re
 import textwrap
@@ -16,6 +15,7 @@ from plugins import *
 
 class InzBot(irc.bot.SingleServerIRCBot):
     def __init__(self):
+        logging.info("Loading config")
         config = yaml.load(open("config.yaml"))
         server, port, channel = config["server"], config["port"], config["channel"]
         nickname, nickpass = config["nickname"], config["nickpass"]
@@ -39,7 +39,13 @@ class InzBot(irc.bot.SingleServerIRCBot):
         self.plugins = []
         self.command_handlers = []
         self.pubmsg_handlers = []
+
+        num_plugins = len(Plugin.__subclasses__())
+        logging.info("Found {} plugins".format(num_plugins))
+
         for PluginClass in Plugin.__subclasses__():
+            logging.info("Loading {}".format(PluginClass.__name__))
+
             plugin = PluginClass()
             self.command_handlers.extend([(plugin, handler) for handler in plugin.command_handlers])
             self.pubmsg_handlers.extend([(plugin, handler) for handler in plugin.pubmsg_handlers])
@@ -47,12 +53,20 @@ class InzBot(irc.bot.SingleServerIRCBot):
         self.command_handlers.sort(key=lambda kv: kv[1].priority, reverse=True)
         self.pubmsg_handlers.sort(key=lambda kv: kv[1].priority, reverse=True)
 
+        logging.info("Initialized")
+
     def on_nicknameinuse(self, c, e):
-        c.nick(c.get_nickname() + "_")
+        nick = c.get_nickname()
+        new_nick = nick + "_"
+        logging.info("Nickname {} in use, changing to {}".format(nick, new_nick))
+        c.nick(new_nick)
 
     def on_welcome(self, c, e):
+        logging.info("Connected to the network")
         if self.nickpass:
             c.privmsg('NickServ', 'identify {}'.format(self.nickpass))
+
+        logging.info("Joining the channel")
         c.join(self.channel)
 
     def message(self, message, target=None, wrap=False):
@@ -128,11 +142,13 @@ class InzBot(irc.bot.SingleServerIRCBot):
             return False
 
 def main():
+    logging.basicConfig(format='%(asctime)s - %(levelname)s - %(module)s - %(message)s', level=logging.INFO)
     bot = InzBot()
     try:
         bot.start()
     except:
         logging.exception("")
+    logging.info("Closing")
 
 if __name__ == "__main__":
     main()

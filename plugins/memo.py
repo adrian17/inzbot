@@ -5,6 +5,7 @@ import arrow
 
 class MemoPlugin(Plugin):
     def __init__(self):
+        import logging
         super().__init__()
         self.memos = defaultdict(list)
 

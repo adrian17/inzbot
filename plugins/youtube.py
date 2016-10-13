@@ -1,7 +1,6 @@
 from plugin_base import *
 
 import logging
-logging.basicConfig(format='\n%(asctime)s %(message)s', filename='../inzbot.log')
 
 import isodate
 import requests
