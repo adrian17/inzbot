@@ -66,12 +66,12 @@ class EchoPlugin(Plugin):
     def slap(self, bot, event):
         """slap <username>|all => Slap a user or all users."""
         target, *rest = event.text.strip().split(maxsplit=1)
-        rest = rest[0] if rest else "surowa makrela"
+        rest = rest[0] if rest else "with a pancake"
         users = list(bot.channels[bot.channel].users())
         if target == "all":
             for user in users:
-                bot.message(make_action("uderza " + user + " " + rest), target=bot.channel)
+                bot.message(make_action("slaps " + user + " " + rest), target=bot.channel)
         elif target in users:
-            bot.message(make_action("uderza " + target + " " + rest), target=bot.channel)
+            bot.message(make_action("slaps " + target + " " + rest), target=bot.channel)
         else:
-            bot.message(make_action("nie widzi " + target), target=bot.channel)
+            bot.message(make_action("can't find " + target), target=bot.channel)
