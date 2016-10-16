@@ -15,7 +15,10 @@ class TitlePlugin(Plugin):
     @priority(70)
     @pattern(R"(?P<url>https?://[^\s]+)")
     def handle_line(self, bot, event):
-        header = {'User-Agent': bot.user_agent}
+        header = {
+            'User-Agent': bot.user_agent,
+            'Accept-Language': 'en'
+        }
 
         url = event.match.group("url")
 
