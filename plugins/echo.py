@@ -35,7 +35,7 @@ class EchoPlugin(Plugin):
 
     @on_pubmsg
     @priority(10)
-    @pattern("naleśnik")
+    @pattern(" *".join("naleśnik"))
     def handle_line(self, bot, event):
         bot.message("(smacznego)")
 
