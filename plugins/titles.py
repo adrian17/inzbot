@@ -30,7 +30,7 @@ class TitlePlugin(Plugin):
                     response.encoding = 'UTF-8'
                 soup = BeautifulSoup(response.text, "html.parser")
                 title = soup.find("title").text.strip()
-                message = color("=== ") + title + color(" ===")
+                message = color("↳ ") + title
                 bot.message(message)
                 return True
         except requests.exceptions.Timeout:

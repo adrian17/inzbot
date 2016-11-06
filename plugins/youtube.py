@@ -5,6 +5,9 @@ import logging
 import isodate
 import requests
 
+def color(message):
+    return "\x033" + message + "\x03 "
+
 class YoutubePlugin(Plugin):
     """Prints data about a YouTube video from its link."""
 
@@ -31,5 +34,5 @@ class YoutubePlugin(Plugin):
             logging.exception("")
             bot.message("possible error, check it", target="adrian17")
             return False
-        bot.message("=== video: |{}| by {}, len: {} ===".format(video_title, video_author, str(duration)))
+        bot.message(color("↳ ") + "|{}| by {}, len: {}".format(video_title, video_author, str(duration)))
         return True
