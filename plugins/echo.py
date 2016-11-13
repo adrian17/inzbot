@@ -39,6 +39,13 @@ class EchoPlugin(Plugin):
     def handle_line(self, bot, event):
         bot.message("(smacznego)")
 
+    @on_pubmsg
+    @priority(90)
+    def handle_line(self, bot, event):
+        if "https://thepasteb.in/p/" in event.message:
+            bot.message("Please use https://gist.github.com/ instead.")
+            return True
+
     @command
     def figlet(self, bot, event):
         """figlet <text> => Prints a result of the "figlet" program."""
