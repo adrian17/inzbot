@@ -1,6 +1,7 @@
 from plugin_base import *
 
 from unidecode import unidecode
+import random
 import subprocess
 
 def make_action(message):
@@ -45,6 +46,15 @@ class EchoPlugin(Plugin):
         if "https://thepasteb.in/p/" in event.message:
             bot.message("Please use https://gist.github.com/ instead.")
             return True
+
+    @command
+    def rate(self, bot, event):
+        text = event.text.strip().lower()
+        if not text:
+            return
+        value = random.Random(text).randint(0, 100)
+        bar = ("=" * (value // 4)).ljust(25, '-')
+        bot.message("{}: [{}] ({}%)".format(text, bar, value))
 
     @command
     def figlet(self, bot, event):
