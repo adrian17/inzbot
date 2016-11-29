@@ -4,6 +4,7 @@ import logging
 
 import re
 import textwrap
+import sys
 
 import irc.bot
 import irc.strings
@@ -148,6 +149,8 @@ def main():
         bot.start()
     except:
         logging.exception("")
+        logging.info("Closing due to error")
+        sys.exit(1)
     logging.info("Closing")
 
 if __name__ == "__main__":
