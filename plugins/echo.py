@@ -46,6 +46,9 @@ class EchoPlugin(Plugin):
         if "https://thepasteb.in/p/" in event.message:
             bot.message("Please use https://gist.github.com/ instead.")
             return True
+        elif "apt-get install" in event.message:
+            bot.message("(apt install)")
+            return True
 
     @command
     def rate(self, bot, event):
