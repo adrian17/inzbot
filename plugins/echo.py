@@ -80,7 +80,7 @@ class EchoPlugin(Plugin):
             upsidedown = "∀ᗺƆpƎℲפHIſʞ˥WNOԀQɹS┴∩ΛMX⅄ZɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎzƖᄅƐㄣϛ9ㄥ860˙'¡¿(()¯<>"
             mapping = {a: b for a, b in zip(normal, upsidedown)}
             flipped = "".join(mapping.get(c, c) for c in reversed(event.text))
-            bot.message("(╯°□°）╯︵ " + flipped, target=bot.channel)
+            bot.message("(╯°□°）╯︵ " + flipped)
 
     @command
     def slap(self, bot, event):
