@@ -37,7 +37,7 @@ class EchoPlugin(Plugin):
     @on_pubmsg
     @priority(10)
     @pattern(" *".join("naleśnik"))
-    def handle_line(self, bot, event):
+    def handle_pancake(self, bot, event):
         bot.message("(smacznego)")
 
     @on_pubmsg
