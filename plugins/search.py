@@ -17,7 +17,7 @@ def do_google_request(bot, query):
         return None
 
 class SearchPlugin(Plugin):
-    @command
+    @command("google", "g")
     def google(self, bot, event):
         """google <query> => Makes a google search and returns first result."""
         if not event.text:
