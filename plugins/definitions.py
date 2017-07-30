@@ -16,7 +16,7 @@ class DefinitionsPlugin(Plugin):
 
     def save(self):
         with open(self.path, "w") as datafile:
-            yaml.dump(self.definitions, datafile, default_flow_style=False)
+            yaml.dump(self.definitions, datafile, default_flow_style=False, allow_unicode=True)
 
     @command
     @admin
