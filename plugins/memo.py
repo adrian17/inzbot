@@ -17,7 +17,7 @@ class MemoPlugin(Plugin):
             bot.message("No message given.")
             return
         target, message = text.split(maxsplit=1)
-        target, message = target.strip(), message.strip()[:400]
+        target, message = target.strip().rstrip(".,:"), message.strip()[:400]
         self.memos[target].append((event.source.nick, arrow.now(bot.timezone), message))
         bot.message("Consider it noted.")
 
