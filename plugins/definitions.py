@@ -1,22 +1,11 @@
 from plugin_base import *
 
-import os
-import yaml
-
 class DefinitionsPlugin(Plugin):
-
-    path = "definitions.yaml"
 
     def __init__(self):
         super().__init__()
-        self.definitions = {}
-        if os.path.isfile(self.path):
-            with open(self.path) as datafile:
-                self.definitions = yaml.load(datafile)
-
-    def save(self):
-        with open(self.path, "w") as datafile:
-            yaml.dump(self.definitions, datafile, default_flow_style=False, allow_unicode=True)
+        self.state = PersistentState("definitions.yaml")
+        self.definitions = self.state.load(default={})
 
     @command
     @admin
@@ -30,7 +19,7 @@ class DefinitionsPlugin(Plugin):
             bot.message("Name should start with a letter")
             return
         self.definitions[name] = definition
-        self.save()
+        self.state.save(self.definitions)
         bot.message("Saved.")
 
     @command

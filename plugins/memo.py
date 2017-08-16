@@ -2,8 +2,6 @@ from plugin_base import *
 
 from collections import defaultdict
 import arrow
-import os
-import yaml
 
 class MemoPlugin(Plugin):
 
@@ -11,14 +9,8 @@ class MemoPlugin(Plugin):
 
     def __init__(self):
         super().__init__()
-        self.memos = {}
-        if os.path.isfile(self.path):
-            with open(self.path) as datafile:
-                self.memos = yaml.load(datafile)
-
-    def save(self):
-        with open(self.path, "w") as datafile:
-            yaml.dump(self.memos, datafile, default_flow_style=False, allow_unicode=True)
+        self.state = PersistentState("memos.yaml")
+        self.memos = self.state.load(default={})
 
     @command
     def tell(self, bot, event):
@@ -32,7 +24,7 @@ class MemoPlugin(Plugin):
         self.memos.setdefault(target, []).append(
             (event.source.nick, arrow.now(bot.timezone), message)
         )
-        self.save()
+        self.state.save(self.memos)
         bot.message("Consider it noted.")
 
     @on_pubmsg
@@ -43,4 +35,4 @@ class MemoPlugin(Plugin):
                 time = time.format("HH:mm")
                 bot.message("{}: {} | {} | {}".format(nick, source, time, message))
             del self.memos[nick]
-            self.save()
+            self.state.save(self.memos)

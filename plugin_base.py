@@ -1,5 +1,7 @@
 from functools import wraps
 import inspect
+import os
+import yaml
 
 class Plugin:
     def __init__(self):
@@ -68,3 +70,17 @@ def admin(function):
         if event.source.nick in bot.admins:
             function(self, bot, event)
     return admin_function
+
+class PersistentState:
+    def __init__(self, path):
+        self.path = path
+
+    def load(self, default=None):
+        if os.path.isfile(self.path):
+            with open(self.path) as datafile:
+                return yaml.load(datafile)
+        return default
+
+    def save(self, data):
+        with open(self.path, "w") as datafile:
+            yaml.dump(data, datafile, default_flow_style=False, allow_unicode=True)
