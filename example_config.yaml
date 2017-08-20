@@ -12,3 +12,4 @@ other:
   user-agent: null
   google-api-key: null
   google-search-engine: null
+  nsjail_path: null

@@ -2,6 +2,7 @@
 
 import logging
 
+from pathlib import Path
 import re
 import textwrap
 import sys
@@ -32,6 +33,9 @@ class InzBot(irc.bot.SingleServerIRCBot):
         self.user_agent = config["other"]["user-agent"]
         self.google_api_key = config["other"]["google-api-key"]
         self.google_search_engine = config["other"]["google-search-engine"]
+        self.nsjail_path = config['other']['nsjail_path']
+        if self.nsjail_path is None and Path('/bin/nsjail').exists():
+            self.nsjail_path = '/bin/nsjail'
 
         self.admins = config["admins"]
         self.blacklist = config["blacklist"]
