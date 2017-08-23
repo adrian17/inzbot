@@ -132,8 +132,6 @@ class InzBot(irc.bot.SingleServerIRCBot):
                 return
 
     def do_command(self, e, cmd, priv=False, allow_passthrough=True):
-        if priv and e.source.nick != "adrian17":
-            self.message(e.source.nick + " asked me to: " + cmd, target="adrian17")
         command, *arg = cmd.split(" ", 1)
         for plugin, handler in self.command_handlers:
             if command not in handler.commands:
