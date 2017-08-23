@@ -40,6 +40,7 @@ class InzBot(irc.bot.SingleServerIRCBot):
         self.admins = config["admins"]
         self.blacklist = config["blacklist"]
         self.disabled_commands = config["disabled_commands"]
+        self.enabled_plugins = config["enabled_plugins"]
 
         self.plugins = []
         self.command_handlers = []
@@ -49,6 +50,8 @@ class InzBot(irc.bot.SingleServerIRCBot):
         logging.info("Found {} plugins".format(num_plugins))
 
         for PluginClass in Plugin.__subclasses__():
+            if self.enabled_plugins and PluginClass.__name__ not in self.enabled_plugins:
+                continue
             logging.info("Loading {}".format(PluginClass.__name__))
 
             plugin = PluginClass()

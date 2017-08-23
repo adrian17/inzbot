@@ -5,6 +5,7 @@ nickname: example_irc_bot
 nickpass: null
 timezone: local
 disabled_commands: []
+enabled_plugins: null
 admins: []
 prompt: '!'
 blacklist: []
