@@ -31,7 +31,7 @@ class PythonPlugin(Plugin):
 			'-Mo',
 			'--chroot', str(self.chroot_dir.resolve()),
 			'-E', 'LANG=en_US.UTF-8',
-			'-R/usr/bin/python3', '-R/usr/lib', '-R/lib', '-R/lib64',
+			'-R/usr/bin/python3', '-R/usr/lib', '-R/lib/x86_64-linux-gnu', '-R/lib64',
 			'--user', 'nobody',
 			'--group', 'nogroup',
 			'--time_limit', '2',
