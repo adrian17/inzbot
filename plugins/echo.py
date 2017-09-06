@@ -63,9 +63,9 @@ class EchoPlugin(Plugin):
     def figlet(self, bot, event):
         """figlet <text> => Prints a result of the "figlet" program."""
         text = event.text.strip()
+        text = unidecode(text)
         if text.startswith("-"):
             return
-        text = unidecode(text)
         output = subprocess.check_output(['figlet', text]).decode('utf-8').splitlines()[:6]
         for line in output:
             line = line.rstrip()
