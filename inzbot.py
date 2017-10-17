@@ -113,7 +113,7 @@ class InzBot(irc.bot.SingleServerIRCBot):
 
         if self.short_prompt and message.startswith(self.prompt_start):
             command = message[len(self.prompt_start):]
-            executed = self.do_command(e, command.strip(), allow_passthrough=True)
+            executed = self.do_command(e, command.rstrip(), allow_passthrough=True)
             if executed:
                 return
 
